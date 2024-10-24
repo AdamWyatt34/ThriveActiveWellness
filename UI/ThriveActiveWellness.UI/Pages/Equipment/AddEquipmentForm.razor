@@ -1,0 +1,61 @@
+﻿@using ThriveActiveWellness.UI.Validation
+@using FluentValidation
+@using ThriveActiveWellness.UI.Models.ApiModels.Equipment
+@using ThriveActiveWellness.UI.Services.Clients
+@using Severity = MudBlazor.Severity
+
+@inject IEquipmentApi EquipmentApi
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <DialogContent>
+        <MudPaper Class="pa-4">
+            <MudGrid>
+                <MudItem>
+                    <MudForm>
+                        <MudTextField @bind-Value="@Name"
+                                      Label="Name"
+                                      HelperText="Max. 255 characters"
+                                      Variant="Variant.Outlined"
+                                      Validation="_nameValidator.Validation"
+                                      OnlyValidateIfDirty="false"/>
+                    </MudForm>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </DialogContent>
+    <DialogActions>
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="SaveEquipment">Save</MudButton>
+        <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary" Class="ml-2" OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    
+    string Name { get; set; }
+
+    readonly FluentValueValidator<string> _nameValidator = new(x => x
+        .NotEmpty()
+        .MaximumLength(255));
+
+    private async Task SaveEquipment()
+    {
+        var equipment = new CreateEquipmentRequest(Name);
+
+        var result = await EquipmentApi.CreateAsync(equipment);
+
+        if (result.IsSuccess)
+        {
+            Snackbar.Add($"Equipment {equipment.Name} created successfully", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add(result.Error.Name, Severity.Error);
+        }
+        
+        MudDialog.Close(DialogResult.Ok(result));
+    }
+    
+    void Cancel() => MudDialog.Cancel();
+}

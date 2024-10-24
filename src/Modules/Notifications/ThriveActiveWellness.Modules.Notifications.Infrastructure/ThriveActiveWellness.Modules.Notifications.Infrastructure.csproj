@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Infrastructure\ThriveActiveWellness.Common.Infrastructure.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Notifications.Application\ThriveActiveWellness.Modules.Notifications.Application.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Notifications.Domain\ThriveActiveWellness.Modules.Notifications.Domain.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Notifications.Presentation\ThriveActiveWellness.Modules.Notifications.Presentation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BoldSign.Api" Version="6.0.7" />
+      <PackageReference Include="QuestPDF" Version="2024.7.3" />
+      <PackageReference Include="SendGrid.Extensions.DependencyInjection" Version="1.0.1" />
+    </ItemGroup>
+
+</Project>

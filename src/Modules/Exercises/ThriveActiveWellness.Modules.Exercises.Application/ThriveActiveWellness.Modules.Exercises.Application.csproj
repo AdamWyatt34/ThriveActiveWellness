@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Application\ThriveActiveWellness.Common.Application.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Exercises.Domain\ThriveActiveWellness.Modules.Exercises.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

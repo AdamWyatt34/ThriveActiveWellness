@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Database\Migrations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Application\ThriveActiveWellness.Common.Application.csproj" />
+      <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Domain\ThriveActiveWellness.Common.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Infrastructure\ThriveActiveWellness.Common.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Presentation\ThriveActiveWellness.Common.Presentation.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Exercises.Application\ThriveActiveWellness.Modules.Exercises.Application.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Exercises.Domain\ThriveActiveWellness.Modules.Exercises.Domain.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Exercises.Presentation\ThriveActiveWellness.Modules.Exercises.Presentation.csproj" />
+    </ItemGroup>
+
+</Project>

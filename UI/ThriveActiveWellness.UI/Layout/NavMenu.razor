@@ -1,0 +1,10 @@
+<MudPaper Elevation="0" Class="py-3">
+    <MudNavMenu Color="Color.Secondary" Bordered="true">
+        <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home" IconColor="Color.Success" >Home</MudNavLink>
+        <AuthorizeView>
+            <Authorized>
+                <MudNavLink Href="equipment" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.FitnessCenter">Equipment</MudNavLink>
+            </Authorized>
+        </AuthorizeView>
+    </MudNavMenu>
+</MudPaper>

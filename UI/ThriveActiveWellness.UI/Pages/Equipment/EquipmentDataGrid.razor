@@ -1,0 +1,151 @@
+﻿@using ThriveActiveWellness.UI.Models.ApiModels.Equipment
+@using ThriveActiveWellness.UI.Services.Clients
+@using SortDirection = ThriveActiveWellness.UI.Enums.SortDirection
+@using ThriveActiveWellness.UI.Models.ApiModels
+@using ThriveActiveWellness.UI.Components.Dialog
+@inject IEquipmentApi EquipmentApi
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+@if (Items is null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true"/>
+}
+else
+{
+    <MudGrid>
+        <MudItem xs="12">
+            <MudToolBar Class="justify-content-end">
+                <MudSpacer/>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@AddItem" StartIcon="@Icons.Material.Outlined.Add">Add Equipment</MudButton>
+            </MudToolBar>
+        </MudItem>
+    </MudGrid>
+    <MudDataGrid T="EquipmentModel" Items="@Items.Records" EditMode="DataGridEditMode.Form" CommittedItemChanges="@CommittedItemChanges"
+                 Bordered="true" Dense="true" EditTrigger="DataGridEditTrigger.Manual" ReadOnly="false">
+        <Columns>
+            <PropertyColumn Property="e => e.Name" SortIcon="@Icons.Material.Outlined.Sort"/>
+            <TemplateColumn CellClass="d-flex justify-end">
+                <CellTemplate>
+                    <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync"/>
+                    <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="async () => await DeleteItemAsync(context.Item)"/>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+        <PagerContent>
+            <MudPagination SelectedChanged="async (int i) => await OnPageChangedAsync(i)" Count="@Pages" />
+        </PagerContent>
+    </MudDataGrid>
+}
+
+@code {
+    
+    private PagedResultModel<EquipmentModel> Items { get; set; }
+    private int Pages => Convert.ToInt32(Math.Ceiling((double)Items.TotalRecordCount / 10));
+    private int CurrentPage = 1;
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+    
+    private async Task LoadData(int page = 1)
+    {
+        var equipment = await EquipmentApi.ListEquipmentAsync(
+            null,
+            ListEquipmentSortOptions.Name,
+            SortDirection.Asc,
+            CurrentPage,
+            10
+        );
+
+        if (!equipment.IsSuccess)
+        {
+            Snackbar.Add(equipment.Error.Name, Severity.Error);
+        }
+        
+        Items = equipment.Value;
+    }
+    
+    // events
+    async Task AddItem()
+    {
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.ExtraSmall,
+            FullWidth = true,
+            DisableBackdropClick = true
+        };
+        
+        var dialog = await DialogService.ShowAsync<AddEquipmentForm>("Add Equipment", options: options);
+        
+        var dialogResult = await dialog.Result;
+        
+        if (dialogResult.Canceled)
+        {
+            return;
+        }
+        
+        await LoadData();
+    }
+    
+    async Task CommittedItemChanges(EquipmentModel item)
+    {
+        var result = await EquipmentApi.UpdateAsync(item.EquipmentId, new UpdateEquipmentRequest(item.Name));
+        
+        if (!result.IsSuccess)
+        {
+            Snackbar.Add(result.Error.Name, Severity.Error);
+        }
+        else
+        {
+            Snackbar.Add("Equipment updated successfully", Severity.Success);
+            await LoadData();
+        }
+    }
+    
+    async Task DeleteItemAsync(EquipmentModel item)
+    {
+        var parameters = new DialogParameters<Dialog>
+        {
+            {
+                x => x.ContentText, "Are you sure you want to delete this equipment?"
+            },
+            {
+                x => x.ButtonText, "Delete Equipment"
+            },
+            {
+                x => x.Color, Color.Error
+            }
+        };
+        
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.ExtraSmall,
+            FullWidth = true,
+            DisableBackdropClick = true
+        };
+        
+        var dialog = await DialogService.ShowAsync<Dialog>("Delete Equipment", parameters, options);
+
+        var dialogResult = await dialog.Result;
+        
+        if (dialogResult.Canceled)
+        {
+            return;
+        }
+        
+        await EquipmentApi.DeleteAsync(item.EquipmentId);
+        
+        Snackbar.Add("Equipment deleted successfully", Severity.Success);
+        await LoadData();
+        
+    }
+    
+    private async Task OnPageChangedAsync(int i)
+    {
+        CurrentPage = i;
+        await LoadData(i);
+    }
+}

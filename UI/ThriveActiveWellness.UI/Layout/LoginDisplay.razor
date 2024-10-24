@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager Navigation
+
+<AuthorizeView>
+    <Authorized>
+        <MudNavLink @onclick="BeginLogOut">Log out</MudNavLink>
+    </Authorized>
+    <NotAuthorized>
+        <MudNavLink href="authentication/login">Log in</MudNavLink>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+    public void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+}

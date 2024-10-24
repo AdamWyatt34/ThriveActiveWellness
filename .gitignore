@@ -1,0 +1,11 @@
+﻿*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+.vs
+.idea
+.containers
+.config
+.files

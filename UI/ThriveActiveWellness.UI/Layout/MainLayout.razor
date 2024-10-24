@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+
+<MudThemeProvider Theme="_thriveActiveWellnessTheme" @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText Typo="Typo.h5" Color="Color.Secondary" Class="ml-3">Thrive Active Wellness</MudText>
+        <MudSpacer/>
+        <MudSwitch Value="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="Dark Mode"/>
+        <MudSpacer />
+        <AuthorizeView>
+            <Authorized>
+                Hello, @context.User.Identity?.Name!
+            </Authorized>
+        </AuthorizeView>
+        <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+            <AuthorizeView>
+                <Authorized>
+                    <MudMenuItem>Profile</MudMenuItem>
+                    <MudMenuItem>My account</MudMenuItem>
+                    <MudMenuItem OnClick="BeginLogOut">Logout</MudMenuItem>
+                </Authorized>
+                <NotAuthorized>
+                    <MudMenuItem Href="authentication/login">Login/Register</MudMenuItem>
+                </NotAuthorized>
+            </AuthorizeView>
+        </MudMenu>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+    private MudThemeProvider _mudThemeProvider;
+    private bool _isDarkMode;
+
+    private readonly MudTheme _thriveActiveWellnessTheme = new()
+    {
+        Palette = new PaletteLight
+        {
+            Primary = Colors.Blue.Lighten3,
+            Secondary = Colors.Green.Accent4,
+            AppbarBackground = Colors.LightBlue.Lighten3,
+            AppbarText = Colors.Grey.Darken2,
+            Background = Colors.Grey.Lighten5,
+        },
+        PaletteDark = new PaletteDark
+        {
+            Primary = Colors.Blue.Lighten1,
+            Secondary = Colors.LightGreen.Lighten3,
+            AppbarBackground = Colors.Blue.Darken4,
+            AppbarText = Colors.Shades.White,
+            Background = Colors.Grey.Darken4,
+        },
+
+        LayoutProperties = new LayoutProperties
+        {
+            DrawerWidthLeft = "260px",
+            DrawerWidthRight = "300px"
+        }
+    };
+    
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+            await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
+            StateHasChanged();
+        }
+    }
+    
+    private Task OnSystemPreferenceChanged(bool newValue)
+    {
+        _isDarkMode = newValue;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+    
+    public void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+}

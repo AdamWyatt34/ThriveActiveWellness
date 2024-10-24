@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Application\ThriveActiveWellness.Common.Application.csproj" />
+      <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Domain\ThriveActiveWellness.Common.Domain.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Users.Domain\ThriveActiveWellness.Modules.Users.Domain.csproj" />
+      <ProjectReference Include="..\ThriveActiveWellness.Modules.Users.IntegrationEvents\ThriveActiveWellness.Modules.Users.IntegrationEvents.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Abstractions\Identity\" />
+    </ItemGroup>
+
+</Project>

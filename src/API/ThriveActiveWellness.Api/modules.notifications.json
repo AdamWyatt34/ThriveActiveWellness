@@ -1,0 +1,16 @@
+{
+  "Notifications": {
+    "Outbox": {
+      "IntervalInSeconds": 5,
+      "BatchSize": 50
+    },
+    "Inbox": {
+      "IntervalInSeconds": 5,
+      "BatchSize": 50
+    },
+    "BoldSign": {
+      "ClientId": "3ef39824-4f1c-46a2-b6bf-b8181a2a17ac",
+      "ClientSecret": "a2cfeeb7-99f3-4983-8b0b-58864cadf065"
+    }
+  }
+}

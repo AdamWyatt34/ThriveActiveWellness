@@ -1,0 +1,119 @@
+﻿@page "/"
+@using ThriveActiveWellness.UI.Constants
+@using ThriveActiveWellness.UI.Services.Clients
+@using Blazored.SessionStorage
+@using ThriveActiveWellness.UI.Models.ApiModels.UserProfile
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IUserProfileApi UserProfileApi
+@inject ISessionStorageService SessionStorageService
+
+<PageTitle>Home</PageTitle>
+<!-- Look into SyncFusion Blazor Components for the Calendar and Scheduler -->
+<MudContainer>
+    <AuthorizeView>
+        <Authorized>
+            <!-- Authorized User Content -->
+            <MudText Typo="Typo.h4">Good Morning, @context.User.Identity?.Name! Ready for another day of wellness?</MudText>
+            <!-- Quick Access Dashboard -->
+            <!-- Daily Recommendations -->
+            <!-- Activity Feed -->
+            <!-- Community Highlights -->
+            <!-- Personalized CTAs Continue your workout, log today's meal, review your goals -->
+            <!-- Footer for Authorized Users Same as not auth except has Account, Settings, Support, Logout -->
+        </Authorized>
+        <NotAuthorized>
+            <!-- Unauthorized User (Visitor) Content -->
+            <!-- Hero Section -->
+            <MudGrid Class="d-flex justify-center">
+                <MudItem xs="12" Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+                    <MudImage Height="200" Width="400" ObjectFit="ObjectFit.Cover" Fluid="true" Src="../Content/TA-Hero.png" Alt="A diverse group of people enjoying different types of exercises"></MudImage>
+                </MudItem>
+                <MudItem xs="12" Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+                    <MudText Typo="Typo.h3">Elevate Your Fitness Journey</MudText>
+                </MudItem>
+                <MudItem xs="12" Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+                    <MudText Typo="Typo.h4">Join Thrive Active Wellness - Your Personal Guide to Fitness and Nutrition</MudText>
+                </MudItem>
+                <MudItem xs="12" Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="authentication/login">Get Started Today</MudButton>
+                </MudItem>
+            </MudGrid>
+            
+            <!-- Features Overview -->
+            <MudGrid>
+                <MudItem xs="12" sm="4">
+                    <MudText Typo="Typo.h4">
+                        Workout Plans: Customized fitness routines tailored to your goals.
+                    </MudText> 
+                    <MudText Typo="Typo.h5">
+                        Whether you're a beginner or a pro, find the perfect workout for you.
+                    </MudText> 
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudText Typo="Typo.h4">
+                        Nutrition and Meal Planning: Eat right, feel great. 
+                    </MudText>
+                    <MudText Typo="Typo.h5">
+                        Get personalized meal plans and nutritional guidance to fuel your fitness journey.
+                    </MudText>
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudText Typo="Typo.h4">Progress Tracking:</MudText>
+                    <MudText Typo="Typo.h5">
+                        Stay motivated with real-time progress tracking. Watch yourself get stronger, fitter, and healthier.
+                    </MudText>
+                </MudItem>
+                <!-- Testimonials or Success Stories -->
+                <MudItem xs="12" Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+                    <!-- Call to Action -->
+                    <MudText Typo="Typo.h4">Ready to take the first step? Sign up now and start your path to a healthier, happier you.</MudText>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="authentication/login">Get Started Today</MudButton>
+                </MudItem>
+            </MudGrid>
+            <!-- FAQs -->
+            <!-- Footer for Unauthorized Users About Us, Contact, Terms of Service, Privacy Policy, Blog? Social Media Icons -->
+        </NotAuthorized>
+    </AuthorizeView>
+</MudContainer>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            var isUserProcessed = await SessionStorageService.GetItemAsync<bool>(SessionStorageConstants.UserProcessed);
+            
+            if (isUserProcessed)
+            {
+                return;
+            }
+            
+            // Get the newUser claim
+            var newUser = user.FindFirst(ClaimConstants.NewUser)?.Value;
+            
+            var isNewUser = !string.IsNullOrWhiteSpace(newUser) && bool.Parse(newUser);
+            
+            // If the newUser claim is true, send a request to the api to create the user in the database
+            if (isNewUser)
+            {
+                // Need to update to get the parameters needed and update API call to pass the parameters
+                var createUserModel = new CreateUserModel(
+                    user.FindFirst(ClaimConstants.Email)?.Value,
+                    user.FindFirst(ClaimConstants.FirstName)?.Value,
+                        user.FindFirst(ClaimConstants.LastName)?.Value,
+                        user.FindFirst(ClaimConstants.Oid)?.Value
+                );
+                
+                // Send the request to the api to create the user in the database
+                await UserProfileApi.CreateAsync(createUserModel);
+                
+                // Set the session storage to indicate that the user has been created
+                await SessionStorageService.SetItemAsync(SessionStorageConstants.UserProcessed, true);
+            }
+        }
+    }
+}
