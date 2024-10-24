@@ -14,10 +14,10 @@ public class Exercise : Entity
     public ExerciseTableId TableId { get; private set; }
     
     private readonly List<Media> _media;
-    public IReadOnlyList<Media> Media => _media.ToList();
+    public IReadOnlyList<Media> Media => [.. _media];
 
     private readonly List<ExerciseMuscleGroup> _exerciseMuscleGroups;
-    public IReadOnlyList<ExerciseMuscleGroup> ExerciseMuscleGroups => _exerciseMuscleGroups.ToList();
+    public IReadOnlyList<ExerciseMuscleGroup> ExerciseMuscleGroups => [.. _exerciseMuscleGroups];
 
     private Exercise()
     {
@@ -66,5 +66,11 @@ public class Exercise : Entity
     public void AddMedia(Uri url, string description, MediaType type)
     {
         AddMedia(url.AbsoluteUri, description, type);
+    }
+    
+    public void ReplaceMedia(List<Media> media)
+    {
+        _media.Clear();
+        _media.AddRange(media);
     }
 }

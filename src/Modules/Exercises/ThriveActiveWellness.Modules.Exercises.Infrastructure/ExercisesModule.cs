@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -69,6 +70,11 @@ public static class ExercisesModule
         services.Configure<InboxOptions>(configuration.GetSection("Exercises:Inbox"));
 
         services.ConfigureOptions<ConfigureProcessInboxJob>();
+        
+        services.AddAzureClients(clientBuilder =>
+        {
+            clientBuilder.AddBlobServiceClient(configuration.GetSection("Storage"));
+        });
     }
     
     private static void AddDomainEventHandlers(this IServiceCollection services)

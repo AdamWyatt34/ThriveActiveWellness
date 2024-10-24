@@ -1,5 +1,5 @@
 ﻿{
-  "Notifications": {
+  "Exercises": {
     "Outbox": {
       "IntervalInSeconds": 5,
       "BatchSize": 20
@@ -8,5 +8,8 @@
       "IntervalInSeconds": 5,
       "BatchSize": 20
     }
+  },
+  "Storage": {
+    "ServiceUri": "https://store1.storage.windows.net"
   }
 }
