@@ -11,6 +11,13 @@ internal sealed class MuscleGroupRepository(ExercisesDbContext dbContext) : IMus
         return await dbContext.MuscleGroups.SingleOrDefaultAsync(mg => mg.Id == id);
     }
 
+    public async Task<List<MuscleGroup>> GetByIdsAsync(IEnumerable<MuscleGroupId> ids)
+    {
+        return await dbContext.MuscleGroups
+            .Where(mg => ids.Contains(mg.Id))
+            .ToListAsync();
+    }
+
     public void Add(MuscleGroup muscleGroup)
     {
         dbContext.MuscleGroups.Add(muscleGroup);
