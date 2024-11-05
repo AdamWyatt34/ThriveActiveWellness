@@ -7,7 +7,7 @@ namespace ThriveActiveWellness.Modules.Exercises.Application.Exercises.CreateExe
 
 public sealed record MediaDto(Uri Url, string FileName, string Description, MediaType Type);
 
-public sealed record MuscleGroupDto(Guid MuscleGroupId, MuscleGroupType Type);
+public sealed record MuscleGroupDto(Guid MuscleGroupId, string Name);
 
 public sealed record CreateExerciseCommand(
     Guid ExerciseId,

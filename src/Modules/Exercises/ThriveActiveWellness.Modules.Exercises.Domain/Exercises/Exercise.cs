@@ -1,5 +1,6 @@
 using ThriveActiveWellness.Common.Domain;
 using ThriveActiveWellness.Modules.Exercises.Domain.Equipment;
+using ThriveActiveWellness.Modules.Exercises.Domain.Exercises.Exceptions;
 using ThriveActiveWellnessAPI.Domain.Shared;
 
 namespace ThriveActiveWellness.Modules.Exercises.Domain.Exercises;
@@ -72,5 +73,44 @@ public class Exercise : Entity
     {
         _media.Clear();
         _media.AddRange(media);
+    }
+
+    public void Update(
+        string name,
+        string description,
+        string difficulty,
+        EquipmentTableId equipmentTableId,
+        List<MuscleGroup> muscleGroups)
+    {
+        Name = name;
+        Description = description;
+        Difficulty = difficulty;
+        EquipmentTableId = equipmentTableId;
+        _exerciseMuscleGroups.Clear();
+        _exerciseMuscleGroups.AddRange(muscleGroups.Select(mg => ExerciseMuscleGroup.Create(this, mg, MuscleGroupType.Primary)));
+    }
+
+    public void AddMedia(Uri url, string fileName, string description, MediaType type)
+    {
+        var media = Domain.Exercises.Media.Create(url, fileName, type);
+        _media.Add(media);
+        
+        Raise(new MediaUploadedDomainEvent(
+            Id.Value,
+            url,
+            fileName,
+            description,
+            type));
+    }
+
+    public void UpdateMediaUrl(Uri temporaryUrl, Uri permanentUrl)
+    {
+        Media? media = _media.Find(m => m.Url == temporaryUrl.AbsoluteUri);
+        if (media is null)
+        {
+            throw new MediaNotFoundException(Id.Value);
+        }
+
+        media.UpdateUrl(permanentUrl.AbsoluteUri);
     }
 }

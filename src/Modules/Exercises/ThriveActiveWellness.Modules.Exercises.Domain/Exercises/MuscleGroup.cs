@@ -22,4 +22,9 @@ public class MuscleGroup : Entity
     {
         return new MuscleGroup(MuscleGroupId.New(), name);
     }
+    
+    public static MuscleGroup Create(MuscleGroupId id, string name)
+    {
+        return new MuscleGroup(id, name);
+    }
 }

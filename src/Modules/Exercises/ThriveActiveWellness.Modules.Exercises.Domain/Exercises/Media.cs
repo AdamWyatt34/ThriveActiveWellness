@@ -25,5 +25,17 @@ public class Media
         Description = description ?? throw new ArgumentNullException(nameof(description));
         Type = type;
     }
+    
+    public void Update(string url, string description, MediaType type)
+    {
+        Url = url ?? throw new ArgumentNullException(nameof(url));
+        Description = description ?? throw new ArgumentNullException(nameof(description));
+        Type = type;
+    }
+    
+    public void UpdateUrl(string url)
+    {
+        Url = url ?? throw new ArgumentNullException(nameof(url));
+    }
 
 }
