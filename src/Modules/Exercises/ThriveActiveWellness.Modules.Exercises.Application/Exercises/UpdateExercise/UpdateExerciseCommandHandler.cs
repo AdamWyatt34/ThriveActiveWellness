@@ -5,14 +5,14 @@ using ThriveActiveWellness.Modules.Exercises.Application.Exercises.CreateExercis
 using ThriveActiveWellness.Modules.Exercises.Domain.Equipment;
 using ThriveActiveWellness.Modules.Exercises.Domain.Exercises;
 
-namespace ThriveActiveWellness.Modules.Exercises.Application.Exercises.EditExercise;
+namespace ThriveActiveWellness.Modules.Exercises.Application.Exercises.UpdateExercise;
 
-public sealed class EditExerciseCommandHandler(
+public sealed class UpdateExerciseCommandHandler(
     IExerciseRepository exerciseRepository,
     IEquipmentRepository equipmentRepository,
-    IUnitOfWork unitOfWork) : ICommandHandler<EditExerciseCommand>
+    IUnitOfWork unitOfWork) : ICommandHandler<UpdateExerciseCommand>
 {
-    public async Task<Result> Handle(EditExerciseCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(UpdateExerciseCommand request, CancellationToken cancellationToken)
     {
         Exercise? exercise = await exerciseRepository.GetByIdAsync(new ExerciseId(request.ExerciseId));
         
