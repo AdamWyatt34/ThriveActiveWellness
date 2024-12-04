@@ -16,7 +16,7 @@ public class ExerciseMuscleGroup : Entity
     
     private ExerciseMuscleGroup(ExerciseMuscleGroupId exerciseMuscleGroupId, Exercise exercise, MuscleGroup muscleGroup, MuscleGroupType type)
     {
-        Id = ExerciseMuscleGroupId.New();
+        Id = exerciseMuscleGroupId;
         ExerciseId = exercise.TableId ?? throw new ArgumentNullException(nameof(exercise));
         MuscleGroupId = muscleGroup.TableId ?? throw new ArgumentNullException(nameof(muscleGroup));
         MuscleGroupType = type;

@@ -23,6 +23,7 @@ public class MediaUploadedDomainEventHandler(
                 new Error("Exercise.NotFound",$"Exercise with ID {domainEvent.ExerciseId} not found", ErrorType.NotFound));
         }
 
+        // Update to move the file name based on the exercise ID
         Uri permanentUrl = storageService.MoveAsync(domainEvent.FileName, domainEvent.FileName);
 
         // Update the media URL in the exercise

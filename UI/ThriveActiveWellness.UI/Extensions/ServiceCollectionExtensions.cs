@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-using Refit;
+﻿using Refit;
 using ThriveActiveWellness.UI.Enums;
 using ThriveActiveWellness.UI.Options;
 using ThriveActiveWellness.UI.Services.Clients;
 
 namespace ThriveActiveWellness.UI.Extensions;
 
-public static class ServiceCollectionExtensions
+public static partial class ServiceCollectionExtensions
 {
     public static IServiceCollection AddClients(this IServiceCollection services, IConfiguration configuration)
     {
+        ArgumentNullException.ThrowIfNull(configuration);
+        
         DownstreamApiConfiguration downstreamApiConfiguration = configuration.GetSection("DownstreamApi")
             .Get<DownstreamApiConfiguration>()!;
         
@@ -28,6 +28,8 @@ public static class ServiceCollectionExtensions
     
     public static IServiceCollection AddApiClients(this IServiceCollection services, IConfiguration configuration)
     {
+        ArgumentNullException.ThrowIfNull(configuration);
+        
         DownstreamApiConfiguration downstreamApiConfiguration = configuration.GetSection("DownstreamApi")
             .Get<DownstreamApiConfiguration>()!;
         
@@ -40,23 +42,5 @@ public static class ServiceCollectionExtensions
             .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
         
         return services;
-    }
-    
-    public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
-    {
-        public CustomAuthorizationMessageHandler(
-            IConfiguration configuration,
-            IAccessTokenProvider provider,
-            NavigationManager navigationManager)
-            : base(provider, navigationManager)
-        {
-            DownstreamApiConfiguration downstreamApi = configuration.GetRequiredSection("DownstreamApi")
-                .Get<DownstreamApiConfiguration>()!;
-            
-            ConfigureHandler(
-                authorizedUrls: new[] { downstreamApi.BaseUrl },
-                scopes: downstreamApi.Scopes
-            );
-        }
     }
 }

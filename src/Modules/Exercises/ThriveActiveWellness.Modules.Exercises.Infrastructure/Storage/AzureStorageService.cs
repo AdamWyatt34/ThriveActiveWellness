@@ -25,4 +25,19 @@ public class AzureStorageService(BlobServiceClient blobServiceClient) : IStorage
 
         return sasUri;
     }
+
+    public Uri MoveAsync(string sourceFileName, string destinationFileName)
+    {
+        BlobContainerClient? sourceContainerClient = blobServiceClient.GetBlobContainerClient("exercise-media-temp");
+        BlobClient? sourceBlobClient = sourceContainerClient.GetBlobClient(sourceFileName);
+
+        BlobContainerClient? destinationContainerClient = blobServiceClient.GetBlobContainerClient("exercise-media");
+        BlobClient? destinationBlobClient = destinationContainerClient.GetBlobClient(destinationFileName);
+
+        destinationBlobClient.StartCopyFromUri(sourceBlobClient.Uri);
+
+        sourceBlobClient.Delete();
+
+        return destinationBlobClient.Uri;
+    }
 }

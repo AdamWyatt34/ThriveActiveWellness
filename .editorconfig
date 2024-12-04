@@ -393,3 +393,9 @@ dotnet_diagnostic.S4136.severity = none
 
 # S6605: Collection-specific "Exists" method should be used instead of the "Any" extension
 dotnet_diagnostic.S6605.severity = none
+
+# CA1056: Change the type of 'value' in 'Uri' properties to 'Uri'
+dotnet_diagnostic.CA1056.severity = none
+
+#CA1819: Properties should not return arrays
+dotnet_diagnostic.CA1819.severity = none
