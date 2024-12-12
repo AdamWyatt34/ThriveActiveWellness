@@ -22,7 +22,11 @@ internal sealed class PermissionConfiguration : IEntityTypeConfiguration<Permiss
             Permission.DeleteEquipment,
             Permission.GetEquipment,
             Permission.ModifyEquipment,
-            Permission.SearchEquipment);
+            Permission.SearchEquipment,
+            Permission.CreateExercise,
+            Permission.GetExercise,
+            Permission.ModifyExercise,
+            Permission.SearchExercise);
 
         builder
             .HasMany<Role>()
@@ -37,6 +41,8 @@ internal sealed class PermissionConfiguration : IEntityTypeConfiguration<Permiss
                     CreateRolePermission(Role.Client, Permission.ModifyIfCurrentUser),
                     CreateRolePermission(Role.Client, Permission.SearchEquipment),
                     CreateRolePermission(Role.Client, Permission.GetEquipment),
+                    CreateRolePermission(Role.Client, Permission.GetExercise),
+                    CreateRolePermission(Role.Client, Permission.SearchExercise),
                     // Admin permissions
                     CreateRolePermission(Role.Administrator, Permission.GetUser),
                     CreateRolePermission(Role.Administrator, Permission.ModifyIfCurrentUser),
@@ -44,7 +50,11 @@ internal sealed class PermissionConfiguration : IEntityTypeConfiguration<Permiss
                     CreateRolePermission(Role.Administrator, Permission.CreateEquipment),
                     CreateRolePermission(Role.Administrator, Permission.DeleteEquipment),
                     CreateRolePermission(Role.Administrator, Permission.GetEquipment),
-                    CreateRolePermission(Role.Administrator, Permission.ModifyEquipment));
+                    CreateRolePermission(Role.Administrator, Permission.ModifyEquipment),
+                    CreateRolePermission(Role.Administrator, Permission.CreateExercise),
+                    CreateRolePermission(Role.Administrator, Permission.GetExercise),
+                    CreateRolePermission(Role.Administrator, Permission.ModifyExercise),
+                    CreateRolePermission(Role.Administrator, Permission.SearchExercise));
             });
     }
 

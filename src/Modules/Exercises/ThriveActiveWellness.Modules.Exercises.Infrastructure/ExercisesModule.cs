@@ -11,6 +11,7 @@ using ThriveActiveWellness.Common.Infrastructure.Outbox;
 using ThriveActiveWellness.Common.Presentation.Endpoints;
 using ThriveActiveWellness.Constants;
 using ThriveActiveWellness.Modules.Exercises.Application.Abstractions.Data;
+using ThriveActiveWellness.Modules.Exercises.Application.Abstractions.MediaStorage;
 using ThriveActiveWellness.Modules.Exercises.Domain.Clients;
 using ThriveActiveWellness.Modules.Exercises.Domain.Equipment;
 using ThriveActiveWellness.Modules.Exercises.Domain.Exercises;
@@ -20,6 +21,7 @@ using ThriveActiveWellness.Modules.Exercises.Infrastructure.Equipment;
 using ThriveActiveWellness.Modules.Exercises.Infrastructure.Exercises;
 using ThriveActiveWellness.Modules.Exercises.Infrastructure.Inbox;
 using ThriveActiveWellness.Modules.Exercises.Infrastructure.Outbox;
+using ThriveActiveWellness.Modules.Exercises.Infrastructure.Storage;
 using ThriveActiveWellness.Modules.Users.IntegrationEvents;
 
 namespace ThriveActiveWellness.Modules.Exercises.Infrastructure;
@@ -75,6 +77,8 @@ public static class ExercisesModule
         {
             clientBuilder.AddBlobServiceClient(configuration.GetSection("Storage"));
         });
+
+        services.AddSingleton<IStorageService, AzureStorageService>();
     }
     
     private static void AddDomainEventHandlers(this IServiceCollection services)

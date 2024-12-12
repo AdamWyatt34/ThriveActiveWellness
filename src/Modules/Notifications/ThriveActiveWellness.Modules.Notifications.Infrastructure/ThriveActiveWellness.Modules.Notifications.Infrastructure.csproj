@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\ThriveActiveWellness.Constants\ThriveActiveWellness.Constants.csproj" />
       <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Infrastructure\ThriveActiveWellness.Common.Infrastructure.csproj" />
       <ProjectReference Include="..\ThriveActiveWellness.Modules.Notifications.Application\ThriveActiveWellness.Modules.Notifications.Application.csproj" />
       <ProjectReference Include="..\ThriveActiveWellness.Modules.Notifications.Domain\ThriveActiveWellness.Modules.Notifications.Domain.csproj" />
