@@ -12,8 +12,4 @@
       <ProjectReference Include="..\ThriveActiveWellness.Modules.Users.Presentation\ThriveActiveWellness.Modules.Users.Presentation.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Database\Migrations\" />
-    </ItemGroup>
-
 </Project>

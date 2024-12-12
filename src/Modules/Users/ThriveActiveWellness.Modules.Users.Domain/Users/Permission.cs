@@ -1,6 +1,6 @@
 ﻿namespace ThriveActiveWellness.Modules.Users.Domain.Users;
 
-public sealed class Permission
+public sealed class Permission(string code)
 {
     public static readonly Permission GetUser = new("users:read");
     public static readonly Permission ModifyIfCurrentUser = new("users:modify:current");
@@ -10,11 +10,10 @@ public sealed class Permission
     public static readonly Permission ModifyEquipment = new("equipment:update");
     public static readonly Permission CreateEquipment = new("equipment:create");
     public static readonly Permission DeleteEquipment = new("equipment:delete");
+    public static readonly Permission CreateExercise = new("exercise:create");
+    public static readonly Permission GetExercise = new("exercise:read");
+    public static readonly Permission SearchExercise = new("exercise:search");
+    public static readonly Permission ModifyExercise = new("exercise:update");
 
-    public Permission(string code)
-    {
-        Code = code;
-    }
-
-    public string Code { get; }
+    public string Code { get; } = code;
 }

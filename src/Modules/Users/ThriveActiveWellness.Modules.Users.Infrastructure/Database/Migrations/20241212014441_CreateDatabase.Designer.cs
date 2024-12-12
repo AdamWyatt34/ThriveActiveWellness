@@ -12,7 +12,7 @@ using ThriveActiveWellness.Modules.Users.Infrastructure.Database;
 namespace ThriveActiveWellness.Modules.Users.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20240813011142_CreateDatabase")]
+    [Migration("20241212014441_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -67,6 +67,16 @@ namespace ThriveActiveWellness.Modules.Users.Infrastructure.Database.Migrations
                         },
                         new
                         {
+                            PermissionCode = "exercise:read",
+                            RoleName = "Client"
+                        },
+                        new
+                        {
+                            PermissionCode = "exercise:search",
+                            RoleName = "Client"
+                        },
+                        new
+                        {
                             PermissionCode = "users:read",
                             RoleName = "Administrator"
                         },
@@ -98,6 +108,26 @@ namespace ThriveActiveWellness.Modules.Users.Infrastructure.Database.Migrations
                         new
                         {
                             PermissionCode = "equipment:update",
+                            RoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "exercise:create",
+                            RoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "exercise:read",
+                            RoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "exercise:update",
+                            RoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "exercise:search",
                             RoleName = "Administrator"
                         });
                 });
@@ -694,6 +724,22 @@ namespace ThriveActiveWellness.Modules.Users.Infrastructure.Database.Migrations
                         new
                         {
                             Code = "equipment:search"
+                        },
+                        new
+                        {
+                            Code = "exercise:create"
+                        },
+                        new
+                        {
+                            Code = "exercise:read"
+                        },
+                        new
+                        {
+                            Code = "exercise:update"
+                        },
+                        new
+                        {
+                            Code = "exercise:search"
                         });
                 });
 
