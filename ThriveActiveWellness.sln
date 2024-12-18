@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThriveActiveWellness.Module
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{FEC5E630-B30B-46F9-8F76-87CD244D7DB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThriveActiveWellness.UI", "UI\ThriveActiveWellness.UI\ThriveActiveWellness.UI.csproj", "{C8DE737F-DB69-4D35-AA97-5EEAEDB3CB9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThriveActiveWellness.UI", "src\UI\ThriveActiveWellness.UI\ThriveActiveWellness.UI.csproj", "{C8DE737F-DB69-4D35-AA97-5EEAEDB3CB9E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{45A3A232-8856-4F31-A701-7C0DFDE4E6C7}"
 EndProject
