@@ -67,9 +67,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThriveActiveWellness.Module
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThriveActiveWellness.Modules.Notifications.Presentation", "src\Modules\Notifications\ThriveActiveWellness.Modules.Notifications.Presentation\ThriveActiveWellness.Modules.Notifications.Presentation.csproj", "{1F133D92-CA06-44D0-93E0-E8D4B3FA8A92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThriveActiveWellness.AppHost", "ThriveActiveWellness.AppHost\ThriveActiveWellness.AppHost.csproj", "{AC725951-8DFD-4555-A0F9-48A6BC9CD7FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThriveActiveWellness.AppHost", "src\ThriveActiveWellness.AppHost\ThriveActiveWellness.AppHost.csproj", "{AC725951-8DFD-4555-A0F9-48A6BC9CD7FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThriveActiveWellness.ServiceDefaults", "ThriveActiveWellness.ServiceDefaults\ThriveActiveWellness.ServiceDefaults.csproj", "{80F42F26-5C29-4D8A-98AA-B68C6191EFCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThriveActiveWellness.ServiceDefaults", "src\ThriveActiveWellness.ServiceDefaults\ThriveActiveWellness.ServiceDefaults.csproj", "{80F42F26-5C29-4D8A-98AA-B68C6191EFCE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppHost", "AppHost", "{1B3A80F3-B3E8-490C-AE4C-5B6D7DC90489}"
 EndProject

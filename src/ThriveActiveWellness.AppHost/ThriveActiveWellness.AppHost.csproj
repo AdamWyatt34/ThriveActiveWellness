@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\API\ThriveActiveWellness.Api\ThriveActiveWellness.Api.csproj" />
+    <ProjectReference Include="..\API\ThriveActiveWellness.Api\ThriveActiveWellness.Api.csproj" />
   </ItemGroup>
 
 </Project>
