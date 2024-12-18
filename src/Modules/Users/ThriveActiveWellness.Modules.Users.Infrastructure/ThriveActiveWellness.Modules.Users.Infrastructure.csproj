@@ -1,11 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Infrastructure\ThriveActiveWellness.Common.Infrastructure.csproj" />
       <ProjectReference Include="..\ThriveActiveWellness.Modules.Users.Application\ThriveActiveWellness.Modules.Users.Application.csproj" />

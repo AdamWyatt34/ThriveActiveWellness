@@ -40,7 +40,7 @@ else
 
 @code {
     
-    private PagedResultModel<EquipmentModel> Items { get; set; }
+    private PagedResultModel<EquipmentModel> Items { get; set; } = new();
     private int Pages => Convert.ToInt32(Math.Ceiling((double)Items.TotalRecordCount / 10));
     private int CurrentPage = 1;
     protected override async Task OnInitializedAsync()
@@ -51,7 +51,7 @@ else
     private async Task LoadData(int page = 1)
     {
         var equipment = await EquipmentApi.ListEquipmentAsync(
-            null,
+            string.Empty,
             ListEquipmentSortOptions.Name,
             SortDirection.Asc,
             CurrentPage,
@@ -74,14 +74,14 @@ else
             CloseButton = true,
             MaxWidth = MaxWidth.ExtraSmall,
             FullWidth = true,
-            DisableBackdropClick = true
+            BackdropClick = false
         };
         
         var dialog = await DialogService.ShowAsync<AddEquipmentForm>("Add Equipment", options: options);
         
         var dialogResult = await dialog.Result;
         
-        if (dialogResult.Canceled)
+        if (dialogResult?.Canceled == true)
         {
             return;
         }
@@ -124,14 +124,14 @@ else
             CloseButton = true,
             MaxWidth = MaxWidth.ExtraSmall,
             FullWidth = true,
-            DisableBackdropClick = true
+            BackdropClick = false
         };
         
         var dialog = await DialogService.ShowAsync<Dialog>("Delete Equipment", parameters, options);
 
         var dialogResult = await dialog.Result;
         
-        if (dialogResult.Canceled)
+        if (dialogResult?.Canceled == true)
         {
             return;
         }

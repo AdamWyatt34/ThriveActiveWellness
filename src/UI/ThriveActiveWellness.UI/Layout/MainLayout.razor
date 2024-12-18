@@ -43,18 +43,18 @@
 
 @code {
     bool _drawerOpen = true;
-    private MudThemeProvider _mudThemeProvider;
+    private MudThemeProvider? _mudThemeProvider;
     private bool _isDarkMode;
 
     private readonly MudTheme _thriveActiveWellnessTheme = new()
     {
-        Palette = new PaletteLight
+        PaletteLight = new PaletteLight
         {
             Primary = Colors.Blue.Lighten3,
             Secondary = Colors.Green.Accent4,
             AppbarBackground = Colors.LightBlue.Lighten3,
-            AppbarText = Colors.Grey.Darken2,
-            Background = Colors.Grey.Lighten5,
+            AppbarText = Colors.Gray.Darken2,
+            Background = Colors.Gray.Lighten5,
         },
         PaletteDark = new PaletteDark
         {
@@ -62,7 +62,7 @@
             Secondary = Colors.LightGreen.Lighten3,
             AppbarBackground = Colors.Blue.Darken4,
             AppbarText = Colors.Shades.White,
-            Background = Colors.Grey.Darken4,
+            Background = Colors.Gray.Darken4,
         },
 
         LayoutProperties = new LayoutProperties
@@ -81,7 +81,7 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && _mudThemeProvider is not null)
         {
             _isDarkMode = await _mudThemeProvider.GetSystemPreference();
             await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);

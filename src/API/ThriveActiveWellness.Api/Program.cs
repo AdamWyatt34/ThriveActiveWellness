@@ -109,7 +109,7 @@ RouteGroupBuilder routeGroupBuilder = app.MapGroup("api");
 
 app.MapEndpoints(routeGroupBuilder);
 
-app.Run();
+await app.RunAsync();
 
 public partial class Program;
 

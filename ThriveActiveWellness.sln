@@ -75,6 +75,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppHost", "AppHost", "{1B3A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceDefaults", "ServiceDefaults", "{D96E45E4-E1AB-498C-A431-650962F2D23B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{06F9942E-EAF6-4BA6-B8A5-B6259E727D64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThriveActiveWellness.Modules.Users.Tests.Integration", "src\Modules\Users\test\ThriveActiveWellness.Modules.Users.Tests.Integration\ThriveActiveWellness.Modules.Users.Tests.Integration.csproj", "{6E58E38F-3D4E-4D05-BF8F-BE368061B815}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +173,10 @@ Global
 		{80F42F26-5C29-4D8A-98AA-B68C6191EFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80F42F26-5C29-4D8A-98AA-B68C6191EFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80F42F26-5C29-4D8A-98AA-B68C6191EFCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E58E38F-3D4E-4D05-BF8F-BE368061B815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E58E38F-3D4E-4D05-BF8F-BE368061B815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E58E38F-3D4E-4D05-BF8F-BE368061B815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E58E38F-3D4E-4D05-BF8F-BE368061B815}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -205,5 +213,7 @@ Global
 		{80F42F26-5C29-4D8A-98AA-B68C6191EFCE} = {D96E45E4-E1AB-498C-A431-650962F2D23B}
 		{AC725951-8DFD-4555-A0F9-48A6BC9CD7FB} = {1B3A80F3-B3E8-490C-AE4C-5B6D7DC90489}
 		{FEC5E630-B30B-46F9-8F76-87CD244D7DB9} = {90AD3186-6DF9-4267-AC69-95FE75B9995F}
+		{06F9942E-EAF6-4BA6-B8A5-B6259E727D64} = {DF9B50ED-23A1-4E6E-B2D2-7966B368DCF7}
+		{6E58E38F-3D4E-4D05-BF8F-BE368061B815} = {06F9942E-EAF6-4BA6-B8A5-B6259E727D64}
 	EndGlobalSection
 EndGlobal

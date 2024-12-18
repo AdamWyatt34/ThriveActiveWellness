@@ -18,7 +18,7 @@ builder.Services.AddMsalAuthentication(options =>
     options.ProviderOptions.DefaultAccessTokenScopes.Add("https://graph.microsoft.com/User.Read");
     options.ProviderOptions.DefaultAccessTokenScopes.Add("openid");
     options.ProviderOptions.DefaultAccessTokenScopes.Add("offline_access");
-    options.ProviderOptions.AdditionalScopesToConsent.Add(builder.Configuration["DownstreamApi:ClientId"]);
+    options.ProviderOptions.AdditionalScopesToConsent.Add(builder.Configuration["DownstreamApi:ClientId"] ?? throw new InvalidOperationException("Missing DownstreamApi:ClientId configuration value"));
     options.ProviderOptions.LoginMode = "Redirect";
 });
 

@@ -31,9 +31,9 @@
 </MudDialog>
 
 @code {
-    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] public required MudDialogInstance MudDialog { get; set; }
     
-    string Name { get; set; }
+    public required string Name { get; set; }
 
     readonly FluentValueValidator<string> _nameValidator = new(x => x
         .NotEmpty()

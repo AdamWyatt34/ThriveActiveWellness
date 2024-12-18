@@ -1,11 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
     <ItemGroup>
       <ProjectReference Include="..\..\..\Common\ThriveActiveWellness.Common.Application\ThriveActiveWellness.Common.Application.csproj" />
       <ProjectReference Include="..\ThriveActiveWellness.Modules.Notifications.Domain\ThriveActiveWellness.Modules.Notifications.Domain.csproj" />

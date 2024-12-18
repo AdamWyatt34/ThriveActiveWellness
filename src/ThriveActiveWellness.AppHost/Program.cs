@@ -14,4 +14,4 @@ builder.AddProject<Projects.ThriveActiveWellness_Api>("thriveactivewellness-api"
     .WithReference(queue)
     .WithReference(redis);
 
-builder.Build().Run();
+await builder.Build().RunAsync();
