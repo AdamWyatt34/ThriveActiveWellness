@@ -1,4 +1,4 @@
-﻿namespace ThriveActiveWellness.Constants;
+﻿namespace ThriveActiveWellness.Common.Infrastructure.Constants;
 
 public static class ServiceNames
 {

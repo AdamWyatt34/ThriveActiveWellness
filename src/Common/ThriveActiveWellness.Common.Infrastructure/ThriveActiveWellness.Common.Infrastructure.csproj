@@ -26,7 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\ThriveActiveWellness.Constants\ThriveActiveWellness.Constants.csproj" />
       <ProjectReference Include="..\ThriveActiveWellness.Common.Application\ThriveActiveWellness.Common.Application.csproj" />
     </ItemGroup>
 
