@@ -29,8 +29,9 @@ public class IntegrationTest1
         await app.StartAsync();
 
         // Act
-        using HttpClient httpClient = app.CreateHttpClient("webfrontend");
-        await resourceNotificationService.WaitForResourceAsync("webfrontend", KnownResourceStates.Running).WaitAsync(TimeSpan.FromSeconds(30));
+        using HttpClient httpClient = app.CreateHttpClient("thriveactivewellness-api");
+        await resourceNotificationService.WaitForResourceAsync("thriveactivewellness-api", KnownResourceStates.Running)
+            .WaitAsync(TimeSpan.FromSeconds(30));
         
         Assert.True(true, "The test is a placeholder and should be replaced with actual test code.");
     }

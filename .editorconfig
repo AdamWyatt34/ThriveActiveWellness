@@ -405,3 +405,6 @@ dotnet_diagnostic.CA1515.severity = none
 
 #CA2007: Consider calling ConfigureAwait on the awaited task
 dotnet_diagnostic.CA2007.severity = none
+
+#CA1852: Consider Sealing on Classes with no subtypes
+dotnet_diagnostic.CA1852.severity = none
