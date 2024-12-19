@@ -1,5 +1,4 @@
 using ThriveActiveWellness.Common.Application.Messaging;
-using ThriveActiveWellness.Common.Domain;
 using ThriveActiveWellness.Modules.Exercises.Domain.Exercises;
 using ThriveActiveWellnessAPI.Domain.Shared;
 

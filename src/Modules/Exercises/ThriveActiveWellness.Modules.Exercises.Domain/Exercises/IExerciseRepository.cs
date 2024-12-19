@@ -1,6 +1,4 @@
-﻿using ThriveActiveWellness.Modules.Exercises.Domain.Equipment;
-
-namespace ThriveActiveWellness.Modules.Exercises.Domain.Exercises;
+﻿namespace ThriveActiveWellness.Modules.Exercises.Domain.Exercises;
 
 public interface IExerciseRepository
 {

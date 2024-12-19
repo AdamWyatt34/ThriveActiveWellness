@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ThriveActiveWellness.Modules.Exercises.Domain.Equipment;
 using ThriveActiveWellness.Modules.Exercises.Infrastructure.Database;
 

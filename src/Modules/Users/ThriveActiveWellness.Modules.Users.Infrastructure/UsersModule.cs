@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using ThriveActiveWellness.Common.Application.Authorization;
 using ThriveActiveWellness.Common.Application.EventBus;
 using ThriveActiveWellness.Common.Application.Messaging;
@@ -10,7 +12,6 @@ using ThriveActiveWellness.Common.Infrastructure.Constants;
 using ThriveActiveWellness.Common.Infrastructure.Outbox;
 using ThriveActiveWellness.Common.Presentation.Endpoints;
 using ThriveActiveWellness.Modules.Users.Application.Abstractions.Data;
-using ThriveActiveWellness.Modules.Users.Application.PARQ.GetParQResponsesByUser;
 using ThriveActiveWellness.Modules.Users.Domain.PARQ;
 using ThriveActiveWellness.Modules.Users.Domain.Users;
 using ThriveActiveWellness.Modules.Users.Infrastructure.Authorization;
@@ -24,47 +25,50 @@ namespace ThriveActiveWellness.Modules.Users.Infrastructure;
 
 public static class UsersModule
 {
-    public static IServiceCollection AddUsersModule(
-        this IServiceCollection services,
+    public static WebApplicationBuilder AddUsersModule(
+        this WebApplicationBuilder builder,
         IConfiguration configuration)
     {
-        services.AddDomainEventHandlers();
+        builder.Services.AddDomainEventHandlers();
 
-        services.AddIntegrationEventHandlers();
+        builder.Services.AddIntegrationEventHandlers();
 
-        services.AddInfrastructure(configuration);
+        builder.AddInfrastructure(configuration);
 
-        services.AddEndpoints(Presentation.AssemblyReference.Assembly);
+        builder.Services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
-        return services;
+        return builder;
     }
 
-    private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    private static void AddInfrastructure(this WebApplicationBuilder builder, IConfiguration configuration)
     {
-        services.AddScoped<IPermissionService, PermissionService>();
+        builder.Services.AddScoped<IPermissionService, PermissionService>();
 
-        services.AddDbContext<UsersDbContext>((sp, options) =>
-            options
-                .UseNpgsql(
-                    configuration.GetConnectionString(ServiceNames.Database),
-                    npgsqlOptions => npgsqlOptions
-                        .MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Users))
-                .AddInterceptors(sp.GetRequiredService<InsertOutboxMessagesInterceptor>())
-                .UseSnakeCaseNamingConvention());
+        builder.AddNpgsqlDbContext<UsersDbContext>(ServiceNames.Database, 
+            configureDbContextOptions: options =>
+            {
+                options
+                    .UseNpgsql(
+                        configuration.GetConnectionString(ServiceNames.Database),
+                        npgsqlOptions => npgsqlOptions
+                            .MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Users))
+                    .UseSnakeCaseNamingConvention()
+                    .AddInterceptors(new InsertOutboxMessagesInterceptor());
+            });
 
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IParQResponseRepository, ParQResponseRepository>();
-        services.AddScoped<IParQCompletionRepository, ParQCompletionRepository>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IParQResponseRepository, ParQResponseRepository>();
+        builder.Services.AddScoped<IParQCompletionRepository, ParQCompletionRepository>();
 
-        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<UsersDbContext>());
+        builder.Services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<UsersDbContext>());
 
-        services.Configure<OutboxOptions>(configuration.GetSection("Users:Outbox"));
+        builder.Services.Configure<OutboxOptions>(configuration.GetSection("Users:Outbox"));
 
-        services.ConfigureOptions<ConfigureProcessOutboxJob>();
+        builder.Services.ConfigureOptions<ConfigureProcessOutboxJob>();
 
-        services.Configure<InboxOptions>(configuration.GetSection("Users:Inbox"));
+        builder.Services.Configure<InboxOptions>(configuration.GetSection("Users:Inbox"));
 
-        services.ConfigureOptions<ConfigureProcessInboxJob>();
+        builder.Services.ConfigureOptions<ConfigureProcessInboxJob>();
     }
 
     private static void AddDomainEventHandlers(this IServiceCollection services)

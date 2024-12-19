@@ -12,6 +12,9 @@ IResourceBuilder<RabbitMQServerResource> queue = builder.AddRabbitMQ("thriveacti
 builder.AddProject<Projects.ThriveActiveWellness_Api>("thriveactivewellness-api")
     .WithReference(db)
     .WithReference(queue)
-    .WithReference(redis);
+    .WithReference(redis)
+    .WaitFor(db)
+    .WaitFor(redis)
+    .WaitFor(queue);
 
 await builder.Build().RunAsync();

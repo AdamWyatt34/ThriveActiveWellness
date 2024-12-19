@@ -7,9 +7,6 @@ using ThriveActiveWellness.Api.Middleware;
 using ThriveActiveWellness.Api.OpenTelemetry;
 using ThriveActiveWellness.Common.Application;
 using ThriveActiveWellness.Common.Infrastructure;
-using ThriveActiveWellness.Common.Infrastructure.Configuration;
-using ThriveActiveWellness.Common.Infrastructure.Constants;
-using ThriveActiveWellness.Common.Infrastructure.EventBus;
 using ThriveActiveWellness.Common.Presentation.Endpoints;
 using ThriveActiveWellness.Modules.Exercises.Infrastructure;
 using ThriveActiveWellness.Modules.Notifications.Infrastructure;
@@ -35,33 +32,21 @@ Assembly[] moduleApplicationAssemblies = [
 
 builder.Services.AddApplication(moduleApplicationAssemblies);
 
-string databaseConnectionString = builder.Configuration.GetConnectionStringOrThrow(ServiceNames.Database);
-string redisConnectionString = builder.Configuration.GetConnectionStringOrThrow(ServiceNames.Redis);
-var rabbitMqSettings = new RabbitMqSettings(builder.Configuration.GetConnectionStringOrThrow(ServiceNames.Queue));
-
-builder.Services.AddInfrastructure(
+builder.AddInfrastructure(
     DiagnosticsConfig.ServiceName,
     [
         ExercisesModule.ConfigureConsumers,
         NotificationsModule.ConfigureConsumers
     ],
-    rabbitMqSettings,
-    databaseConnectionString,
-    redisConnectionString,
     builder.Configuration);
-
-builder.Services.AddHealthChecks()
-    .AddNpgSql(databaseConnectionString)
-    .AddRedis(redisConnectionString)
-    .AddRabbitMQ(rabbitConnectionString: rabbitMqSettings.Host);
 
 builder.Configuration.AddModuleConfiguration(["users", "exercises", "notifications"]);
 
-builder.Services.AddExercisesModule(builder.Configuration);
+builder.AddExercisesModule(builder.Configuration);
 
-builder.Services.AddNotificationsModule(builder.Configuration);
+builder.AddNotificationsModule(builder.Configuration);
 
-builder.Services.AddUsersModule(builder.Configuration);
+builder.AddUsersModule(builder.Configuration);
 
 builder.Services.AddCors();
 

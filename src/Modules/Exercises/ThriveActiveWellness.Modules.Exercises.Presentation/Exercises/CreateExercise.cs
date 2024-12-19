@@ -6,7 +6,6 @@ using ThriveActiveWellness.Common.Domain;
 using ThriveActiveWellness.Common.Presentation.Endpoints;
 using ThriveActiveWellness.Common.Presentation.Results;
 using ThriveActiveWellness.Modules.Exercises.Application.Exercises.CreateExercise;
-using ThriveActiveWellnessAPI.Domain.Shared;
 
 namespace ThriveActiveWellness.Modules.Exercises.Presentation.Exercises;
 

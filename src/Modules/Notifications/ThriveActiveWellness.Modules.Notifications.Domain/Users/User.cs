@@ -1,6 +1,4 @@
 ﻿using ThriveActiveWellness.Common.Domain;
-using ThriveActiveWellness.Modules.Notifications.Domain.Notifications;
-using ThriveActiveWellness.Modules.Notifications.Domain.Shared;
 
 namespace ThriveActiveWellness.Modules.Notifications.Domain.Users;
 

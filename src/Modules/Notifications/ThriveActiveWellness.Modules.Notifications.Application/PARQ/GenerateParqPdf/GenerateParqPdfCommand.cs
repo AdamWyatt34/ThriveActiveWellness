@@ -1,5 +1,4 @@
-﻿using MediatR;
-using ThriveActiveWellness.Common.Application.Messaging;
+﻿using ThriveActiveWellness.Common.Application.Messaging;
 
 namespace ThriveActiveWellness.Modules.Notifications.Application.PARQ.GenerateParqPdf;
 
