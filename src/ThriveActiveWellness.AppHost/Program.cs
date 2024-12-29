@@ -1,8 +1,10 @@
 IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(args);
 
-IResourceBuilder<PostgresServerResource> db = builder.AddPostgres("thriveactivewellness-db")
+IResourceBuilder<PostgresServerResource> postgres = builder.AddPostgres("thriveactivewellness-db")
     .WithDataVolume()
     .WithPgAdmin();
+
+IResourceBuilder<PostgresDatabaseResource> db = postgres.AddDatabase("ThriveActiveWellness");
 
 IResourceBuilder<RedisResource> redis = builder.AddRedis("thriveactivewellness-redis");
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using ThriveActiveWellness.Common.Infrastructure.Inbox;
 using ThriveActiveWellness.Common.Infrastructure.Outbox;
 using ThriveActiveWellness.Modules.Exercises.Application.Abstractions.Data;
