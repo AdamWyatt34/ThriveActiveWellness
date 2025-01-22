@@ -73,7 +73,7 @@ public static class InfrastructureConfiguration
         builder.AddRedisDistributedCache(ServiceNames.Redis);
 
         builder.Services.TryAddSingleton<ICacheService, CacheService>();
-
+        
         builder.Services.AddMassTransit(configure =>
         {
             string instanceId = serviceName.ToLowerInvariant().Replace('.', '-');
@@ -81,9 +81,9 @@ public static class InfrastructureConfiguration
             {
                 configureConsumers(configure, instanceId);
             }
-
+        
             configure.SetKebabCaseEndpointNameFormatter();
-
+        
             configure.UsingRabbitMq((context, cfg) =>
             {
                 cfg.Host(configuration.GetConnectionStringOrThrow(ServiceNames.Queue));

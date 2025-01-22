@@ -14,7 +14,7 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options) : D
     internal DbSet<ParQCompletion> ParqCompletions { get; set; }
     internal DbSet<ParqQuestion> ParqQuestions { get; set; }
     internal DbSet<ParqResponse> ParqResponses { get; set; }
-    internal DbSet<User> Users { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

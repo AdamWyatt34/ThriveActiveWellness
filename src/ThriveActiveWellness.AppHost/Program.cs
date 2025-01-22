@@ -1,8 +1,8 @@
 IDistributedApplicationBuilder builder = DistributedApplication.CreateBuilder(args);
 
-IResourceBuilder<PostgresServerResource> postgres = builder.AddPostgres("thriveactivewellness-db")
-    .WithDataVolume()
-    .WithPgAdmin();
+IResourceBuilder<PostgresServerResource> postgres = builder.AddPostgres("thriveactivewellness-server")
+    .WithPgAdmin()
+    .WithDataVolume();
 
 IResourceBuilder<PostgresDatabaseResource> db = postgres.AddDatabase("ThriveActiveWellness");
 
@@ -17,6 +17,7 @@ builder.AddProject<Projects.ThriveActiveWellness_Api>("thriveactivewellness-api"
     .WithReference(redis)
     .WaitFor(db)
     .WaitFor(redis)
-    .WaitFor(queue);
+    .WaitFor(queue)
+    .WaitFor(postgres);
 
 await builder.Build().RunAsync();
