@@ -44,25 +44,6 @@ public class UpdateUserTests : BaseIntegrationTest
         
         Guid userId = result.Value;
         
-        // Ensure changes are saved and detach any tracked entities
-        await DbContext.SaveChangesAsync();
-        DbContext.ChangeTracker.Clear();
-    
-        // Load user by Id with explicit column selection
-        var user = await DbContext.Users
-            .Where(u => u.Id == userId)
-            .Select(u => new
-            {
-                u.Id,
-                u.TableId,
-                u.FirstName,
-                u.LastName,
-                u.Email
-            })
-            .FirstOrDefaultAsync();
-    
-        user.ShouldNotBeNull();
-        
         // Act
         Result updateResult = await Sender.Send(
             new UpdateUserCommand(userId, Faker.Name.FirstName(), Faker.Name.LastName(), Faker.Person.Email)

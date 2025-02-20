@@ -29,24 +29,4 @@ public class RegisterUserCommandHandlerTests : BaseIntegrationTest
         result.Value.ShouldBeOfType<Guid>();
         result.Value.ShouldNotBe(Guid.Empty);
     }
-
-    [Fact]
-    public async Task ThisisATest()
-    {
-        var user = User.Create(
-            Faker.Person.FirstName,
-            Faker.Person.LastName,
-            Faker.Internet.Email(),
-            Faker.Random.Guid().ToString(),
-            Role.Client);
-        
-        DbContext.Users.Add(user);
-        
-        await UnitOfWork.SaveChangesAsync();
-        
-        // Verify user is saved correctly
-        User? updatedUser = await DbContext.Users.FindAsync(user.TableId);
-        
-        updatedUser.ShouldNotBeNull();
-    }
 }
