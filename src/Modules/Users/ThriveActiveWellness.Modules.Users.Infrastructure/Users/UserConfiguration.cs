@@ -40,6 +40,8 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             fitnessProfile.Property(fp => fp.DietaryPreferences)
                 .HasMaxLength(2000);
         });
+
+        builder.Navigation(u => u.FitnessProfile).IsRequired(false);
         
         builder.OwnsOne(user => user.ParQ, parQ =>
         {
@@ -48,5 +50,7 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             parQ.Property(p => p.DateCompleted)
                 .HasDefaultValueSql("current_timestamp at time zone 'utc'");
         });
+        
+        builder.Navigation(u => u.ParQ).IsRequired(false);
     }
 }

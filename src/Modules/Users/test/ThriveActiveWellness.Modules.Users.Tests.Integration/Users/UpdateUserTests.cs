@@ -1,10 +1,9 @@
-﻿using Shouldly;
+﻿using Microsoft.EntityFrameworkCore;
+using Shouldly;
 using ThriveActiveWellness.Common.Domain;
-using ThriveActiveWellness.Modules.Notifications.Domain.Users;
 using ThriveActiveWellness.Modules.Users.Application.Users.RegisterUser;
 using ThriveActiveWellness.Modules.Users.Application.Users.UpdateUser;
 using ThriveActiveWellness.Modules.Users.Tests.Integration.Abstractions;
-using User = ThriveActiveWellness.Modules.Users.Domain.Users.User;
 
 namespace ThriveActiveWellness.Modules.Users.Tests.Integration.Users;
 
@@ -14,12 +13,12 @@ public class UpdateUserTests : BaseIntegrationTest
     {
     }
 
-    public static readonly TheoryData<UpdateUserCommand> InvalidCommands = new()
-    {
-        new UpdateUserCommand(Guid.Empty, Faker.Name.FirstName(), Faker.Name.LastName(), Faker.Person.Email),
-        new UpdateUserCommand(Guid.NewGuid(), "", Faker.Name.LastName(), Faker.Person.Email),
-        new UpdateUserCommand(Guid.NewGuid(), Faker.Name.FirstName(), "", Faker.Person.Email)
-    };
+    public static readonly TheoryData<UpdateUserCommand> InvalidCommands =
+    [
+        new(Guid.Empty, Faker.Name.FirstName(), Faker.Name.LastName(), Faker.Person.Email),
+        new(Guid.NewGuid(), "", Faker.Name.LastName(), Faker.Person.Email),
+        new(Guid.NewGuid(), Faker.Name.FirstName(), "", Faker.Person.Email)
+    ];
     
     [Theory, MemberData(nameof(InvalidCommands))]
     public async Task Should_ReturnError_WhenCommandIsNotValid(UpdateUserCommand command)
@@ -45,8 +44,23 @@ public class UpdateUserTests : BaseIntegrationTest
         
         Guid userId = result.Value;
         
-        User user = DbContext.Users.SingleOrDefault(u => u.Id == userId);
-        
+        // Ensure changes are saved and detach any tracked entities
+        await DbContext.SaveChangesAsync();
+        DbContext.ChangeTracker.Clear();
+    
+        // Load user by Id with explicit column selection
+        var user = await DbContext.Users
+            .Where(u => u.Id == userId)
+            .Select(u => new
+            {
+                u.Id,
+                u.TableId,
+                u.FirstName,
+                u.LastName,
+                u.Email
+            })
+            .FirstOrDefaultAsync();
+    
         user.ShouldNotBeNull();
         
         // Act

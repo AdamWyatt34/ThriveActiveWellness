@@ -28,7 +28,7 @@ internal sealed class GetUserPermissionsQueryHandler(IDbConnectionFactory dbConn
              WHERE u.identity_id = @IdentityId
              """;
 
-        List<UserPermission> permissions = (await connection.QueryAsync<UserPermission>(sql, request)).AsList();
+        List<UserPermission> permissions = (await connection.QueryAsync<UserPermission>(sql, new { request.IdentityId } )).AsList();
 
         if (!permissions.Any())
         {
