@@ -1,3 +1,3 @@
 ﻿namespace ThriveActiveWellness.Modules.Users.Application.PARQ.GetParQQuestions;
 
-public record ParqQuestionResponse(Guid Id, string Question);
+public record ParqQuestionResponse(int Id, string Question);

@@ -17,7 +17,7 @@ internal sealed class GetParQResponseByUserQueryHandler(IDbConnectionFactory dbC
                                r.id AS {nameof(ParqResponseRecord.Id)},
                                r.question_id AS {nameof(ParqResponseRecord.QuestionId)},
                                q.question AS {nameof(ParqResponseRecord.Question)},
-                               r.answer AS {nameof(ParqResponseRecord.Answer)}
+                               r.response AS {nameof(ParqResponseRecord.Answer)}
                            FROM users.parq_responses r
                            INNER JOIN users.parq_questions q ON r.question_id = q.id
                            WHERE r.user_id = @UserId
