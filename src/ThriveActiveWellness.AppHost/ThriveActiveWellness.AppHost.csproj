@@ -14,9 +14,11 @@
     <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.0.0" />
     <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="9.0.0" />
     <PackageReference Include="Aspire.Hosting.Redis" Version="9.0.0" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.Ollama" Version="9.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ThriveActiveWellness.MigrationService\ThriveActiveWellness.MigrationService.csproj" />
     <ProjectReference Include="..\API\ThriveActiveWellness.Api\ThriveActiveWellness.Api.csproj" />
   </ItemGroup>
 

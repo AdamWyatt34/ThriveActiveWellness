@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <UserSecretsId>dotnet-TheiveActiveWellness.MigrationService-1a8fd191-744d-439d-b0a3-6ba5fc073cda</UserSecretsId>
+        <RootNamespace>TheiveActiveWellness.MigrationService</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\src\Modules\Exercises\ThriveActiveWellness.Modules.Exercises.Infrastructure\ThriveActiveWellness.Modules.Exercises.Infrastructure.csproj" />
+      <ProjectReference Include="..\src\Modules\Notifications\ThriveActiveWellness.Modules.Notifications.Infrastructure\ThriveActiveWellness.Modules.Notifications.Infrastructure.csproj" />
+      <ProjectReference Include="..\src\Modules\Users\ThriveActiveWellness.Modules.Users.Infrastructure\ThriveActiveWellness.Modules.Users.Infrastructure.csproj" />
+      <ProjectReference Include="..\src\ThriveActiveWellness.ServiceDefaults\ThriveActiveWellness.ServiceDefaults.csproj" />
+    </ItemGroup>
+</Project>

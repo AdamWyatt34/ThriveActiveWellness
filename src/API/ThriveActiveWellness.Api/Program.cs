@@ -66,8 +66,6 @@ if (app.Environment.IsDevelopment())
         c.OAuthClientSecret($"{configuration["Swagger:ClientSecret"]}");
         c.ConfigObject.AdditionalItems.Add("tagsSorter", "alpha");
     });
-
-    app.ApplyMigrations();
 }
 
 app.MapHealthChecks("health", new HealthCheckOptions
