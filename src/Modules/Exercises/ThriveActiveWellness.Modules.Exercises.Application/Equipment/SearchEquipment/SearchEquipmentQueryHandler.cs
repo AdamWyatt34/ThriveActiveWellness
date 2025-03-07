@@ -17,14 +17,14 @@ public class SearchEquipmentQueryHandler(IDbConnectionFactory dbConnectionFactor
                             SELECT e.id AS {nameof(EquipmentResponse.EquipmentId)},
                                    e.name AS {nameof(EquipmentResponse.Name)} 
                             FROM  exercises.equipment e 
-                            WHERE e.name ILIKE '%'@Search'%'
+                            WHERE e.name ILIKE @Search
                             ORDER BY e.name
                             OFFSET @Offset
                             LIMIT @PageSize
                             """;
         
         var parameters = new SearchEquipmentParameters(
-            request.Search,
+            string.IsNullOrEmpty(request.Search) ? null : $"%{request.Search}%",
             (request.Page - 1) * request.PageSize,
             request.PageSize);
         
@@ -33,10 +33,10 @@ public class SearchEquipmentQueryHandler(IDbConnectionFactory dbConnectionFactor
         const string countSql = $"""
                                  SELECT COUNT(*) 
                                  FROM exercises.equipment e 
-                                 WHERE e.name ILIKE '%'@Search'%'
+                                 WHERE e.name ILIKE @Search
                                  """;
         
-        int totalCount = await connection.ExecuteScalarAsync<int>(countSql, new { request.Search });
+        int totalCount = await connection.ExecuteScalarAsync<int>(countSql, new { parameters.Search });
         
         return new SearchEquipmentResponse(request.Page, request.PageSize, totalCount, equipment.ToList());
     }

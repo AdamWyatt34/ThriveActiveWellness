@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
 using Testcontainers.PostgreSql;
 using Testcontainers.RabbitMq;
 using Testcontainers.Redis;
@@ -53,6 +54,12 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                     .RequireAuthenticatedUser()
                     .AddAuthenticationSchemes("Mock")
                     .Build());
+            
+            
+            // Run migrations
+            using IServiceScope scope = services.BuildServiceProvider().CreateScope();
+            UsersDbContext dbContext = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+            dbContext.Database.EnsureCreated();
         });
     }
 

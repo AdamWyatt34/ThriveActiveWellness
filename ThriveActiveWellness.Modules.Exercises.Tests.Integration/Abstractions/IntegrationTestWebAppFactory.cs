@@ -8,6 +8,7 @@ using Testcontainers.PostgreSql;
 using Testcontainers.RabbitMq;
 using Testcontainers.Redis;
 using ThriveActiveWellness.Common.Infrastructure.Constants;
+using ThriveActiveWellness.Modules.Exercises.Infrastructure.Database;
 
 namespace ThriveActiveWellness.Modules.Exercises.Tests.Integration.Abstractions;
 
@@ -53,6 +54,11 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                     .RequireAuthenticatedUser()
                     .AddAuthenticationSchemes("Mock")
                     .Build());
+            
+            // Run migrations
+            using IServiceScope scope = services.BuildServiceProvider().CreateScope();
+            using ExercisesDbContext dbContext = scope.ServiceProvider.GetRequiredService<ExercisesDbContext>();
+            dbContext.Database.EnsureCreated();
         });
     }
 

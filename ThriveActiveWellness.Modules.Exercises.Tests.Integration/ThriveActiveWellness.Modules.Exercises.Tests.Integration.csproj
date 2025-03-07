@@ -7,7 +7,6 @@
 
     <ItemGroup>
         <PackageReference Include="Bogus" Version="35.6.1" />
-        <PackageReference Include="coverlet.collector" Version="6.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
         <PackageReference Include="Shouldly" Version="4.2.1" />
@@ -19,7 +18,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="coverlet.collector" Version="6.0.0">
+        <PackageReference Include="coverlet.collector" Version="6.0.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
@@ -27,10 +26,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\src\API\ThriveActiveWellness.Api\ThriveActiveWellness.Api.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Equipment\" />
     </ItemGroup>
 
 </Project>
